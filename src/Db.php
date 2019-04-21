@@ -68,4 +68,24 @@ class Db
 		
 		return $stmt->execute([':id' => $id]) ? $stmt->fetch() : false;
 	}
+		/**
+	 * Liczy rekordy zwrócone przez zapytanie.
+	 * 
+	 * @param string $sql
+	 * @param array $params
+	 * @return int
+	 */
+	public function policzRekordy($sql, $params)
+	{
+		$stmt = $this->pdo->prepare($sql);
+		
+		if (!empty($params) && is_array($params)) {
+			foreach($params as $k => $v) {
+				$stmt->bindParam($k, $v);
+			}
+		}
+		$stmt->execute();
+		
+		return $stmt->rowCount();
+	}
 }

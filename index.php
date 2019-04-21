@@ -4,6 +4,10 @@
 
 <p>
     Projekt na zaliczenie przedmiotu Internetowe Bazy Danych w roku akademickim <?=ROK_AKADEMICKI ?>.
+
+
+
 </p>
+
 
 <?php include 'footer.php'; ?>
