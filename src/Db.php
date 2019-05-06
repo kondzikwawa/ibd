@@ -38,9 +38,10 @@ class Db
 	{
 		$stmt = $this->pdo->prepare($sql);
 		
-		if(!empty($params) && is_array($params)) {
-			foreach($params as $k => $v)
-				$stmt->bindParam($k, $v);
+		if (!empty($params) && is_array($params)) {
+			foreach ($params as $k => $v) {
+				$stmt->bindParam($k, $v, \PDO::PARAM_STR);
+			}
 		}
 		
 		return $stmt->execute() ? $stmt->fetchAll() : false;
@@ -87,5 +88,71 @@ class Db
 		$stmt->execute();
 		
 		return $stmt->rowCount();
+	}
+
+	
+	/**
+	 * Dodaje rekord o podanych parametrach do wybranej tabeli.
+	 * 
+	 * @param string $tabela
+	 * @param array $params
+	 * @return int
+	 */
+	public function dodaj($tabela, $params)
+	{
+		$klucze = array_keys($params);
+		$sql = "INSERT INTO $tabela (";
+		$sql .= implode(', ', $klucze);
+		$sql .= ") VALUES (";
+		
+		array_walk($klucze, function(&$elem, $klucz) {
+			$elem = ":$elem";
+		});
+		$sql .= implode(', ', $klucze);
+		$sql .= ")";
+		
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->execute($params);
+		
+		return $this->pdo->lastInsertId();
+	}
+	
+	/**
+	 * Usuwa rekord o podanym id z wybranej tabeli.
+	 * 
+	 * @param string $tabela
+	 * @param int $id
+	 * @return bool
+	 */
+	public function usun($tabela, $id)
+	{
+		$sql = "DELETE FROM $tabela WHERE id = :id";
+		$stmt = $this->pdo->prepare($sql);
+		
+		return $stmt->execute([':id' => $id]);
+	}
+	
+	/**
+	 * Aktualizuje rekord w wybranej tabeli o podanym id.
+	 * 
+	 * @param string $tabela
+	 * @param array $params
+	 * @param int $id
+	 * @return bool
+	 */
+	public function aktualizuj($tabela, $params, $id)
+	{
+		$sql = "UPDATE $tabela SET ";
+		foreach ($params as $k => $v) {
+			$sql .= "$k = :$k, ";
+		}
+		
+		$sql = substr($sql, 0, -2);
+		$sql .= " WHERE id = :id";
+
+		$stmt = $this->pdo->prepare($sql);
+		
+		$params['id'] = $id;
+		return $stmt->execute($params);
 	}
 }

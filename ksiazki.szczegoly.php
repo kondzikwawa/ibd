@@ -1,5 +1,6 @@
 <?php
-
+require_once 'vendor/autoload.php';
+session_start();
 // jesli nie podano parametru id, przekieruj do listy książek
 if(empty($_GET['id'])) {
     header("Location: ksiazki.lista.php");

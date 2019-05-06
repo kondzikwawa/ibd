@@ -1,4 +1,7 @@
 <?php
+require_once 'vendor/autoload.php';
+session_start();
+
 include 'header.php';
 
 use Ibd\Ksiazki;
@@ -21,8 +24,6 @@ $lista = $ksiazki->pobierzStrone($select, $zapytanie['parametry']);
 ?>
 
 <h1>Książki</h1>
-
-
 
 <form method="get" action="" class="form-inline mb-4">
 	<input type="text" name="fraza" placeholder="szukaj" class="form-control form-control-sm mr-2" value="<?=$_GET['fraza'] ?? '' ?>" />
@@ -89,7 +90,7 @@ $lista = $ksiazki->pobierzStrone($select, $zapytanie['parametry']);
 				<td><?=$ks['nazwa']?></td>
 				<td><?=$ks['cena']?></td>
 				<td>
-					<a href="#" title="dodaj do koszyka"><i class="fas fa-cart-plus"></i></a>
+					<a href="koszyk.dodaj.php" data-id="<?=$ks['id'] ?>" class="aDodajDoKoszyka" title="dodaj do koszyka"><i class="fas fa-cart-plus"></i></a>
 					<a href="ksiazki.szczegoly.php?id=<?=$ks['id']?>" title="szczegóły"><i class="fas fa-folder-open"></i></a>
 				</td>
 			</tr>
