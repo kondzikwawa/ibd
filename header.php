@@ -2,7 +2,12 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL | E_STRICT);
 
-define('ROK_AKADEMICKI', (date('Y') - 1) . '/' . date('Y'));
+
+if(session_status() != PHP_SESSION_ACTIVE) {
+    session_start();
+}
+
+if (!defined('ROK_AKADEMICKI')) define('ROK_AKADEMICKI', (date('Y') - 1) . '/' . date('Y'));
 
 require_once 'vendor/autoload.php';
 
@@ -57,6 +62,9 @@ $koszykHtml = "<span class='badge badge-dark' id='wKoszyku'>$liczbaKsiazekWKoszy
                 <ul class="navbar-nav mt-2 mt-lg-0">
 					<?= Menu::generujOpcje('index.php', 'Strona główna') ?>
                     <?= Menu::generujOpcje('ksiazki.lista.php', 'Książki') ?>
+                    <?php if (!empty($_SESSION['id_uzytkownika'])): ?>
+                        <?= Menu::generujOpcje('zamowienia.historia.php', 'Historia zamówień') ?>   
+                    <?php endif; ?>
                     <?= Menu::generujOpcje('koszyk.lista.php', "Koszyk $koszykHtml") ?>
                 </ul>
             </div>
@@ -65,4 +73,4 @@ $koszykHtml = "<span class='badge badge-dark' id='wKoszyku'>$liczbaKsiazekWKoszy
 	
     <div class="container">
         <div class="row">
-            <div class="col-md-10"> 
+            <div class="col-md-9"> 

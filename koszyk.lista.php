@@ -68,8 +68,17 @@ include 'header.php';
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="4">&nbsp;</td>
+					<!--<td colspan="4">&nbsp;</td>
 					<td colspan="2"><input type="submit" class="btn btn-primary btn-sm" name="zmien" value="Zmień liczbę sztuk" /></td>
+					-->
+					<td colspan="3">&nbsp;</td>
+					<td colspan="3">
+						<input type="submit" class="btn btn-secondary btn-sm mb-1" name="zmien" value="Zmień liczbę sztuk" />
+						<?php if (!empty($_SESSION['id_uzytkownika'])): ?>
+                            <a href="zamowienie.php" class="btn btn-primary btn-sm">Złóż zamówienie</a>
+                        <?php endif; ?>
+					</td>
+
 					<td><?= $wartoscZamowienia ?></td>
 				</tr>
 			</tfoot>
