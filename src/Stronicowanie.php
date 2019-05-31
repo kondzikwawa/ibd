@@ -73,11 +73,13 @@ class Stronicowanie
 		$rekordow = $this->db->policzRekordy($select, $this->parametryZapytania);
 		$liczbaStron = ceil($rekordow / $this->naStronie);
 		$parametry = $this->_przetworzParametry();
+		$lastPage = $liczbaStron-1;
 
 		$linki = "<nav><ul class='pagination'> ";
 		if($liczbaStron>1)
 		{
 			$firstPage = 0;
+			
 			$linki .= "<li class='page-item'><a href='$plik?$parametry&strona=$firstPage' class='page-link'><<</a></li>";
 			if($this->strona>0)
 			{

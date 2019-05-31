@@ -86,7 +86,7 @@ class Ksiazki
 				$sql .= " ORDER BY " . $params['sortowanie'];
 			}
 		}
-		
+		//var_dump($sql);
 		return ['sql' => $sql, 'parametry' => $parametry];
 	}
 

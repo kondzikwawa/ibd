@@ -40,7 +40,7 @@ class Db
 		
 		if (!empty($params) && is_array($params)) {
 			foreach ($params as $k => $v) {
-				$stmt->bindParam($k, $v, \PDO::PARAM_STR);
+				$stmt->bindValue($k, $v, \PDO::PARAM_STR);
 			}
 		}
 		

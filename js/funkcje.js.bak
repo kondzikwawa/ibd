@@ -4,7 +4,6 @@ jQuery.fn.center = function () {
 	this.css("left", ($(window).width() - this.width()) / 2 + $(window).scrollLeft() + "px");
 	return this;
 };
-
 $(function() {
 	// dodawanie książki do koszyka
 	$(".aDodajDoKoszyka").click(function() {
@@ -32,14 +31,6 @@ $(function() {
 		return false;
 	});
 	$(".aUsunAutora").click(usunRekord);
-
-	// kategorie
-	$("#fDodajKategorie").hide();
-	$("#aDodajKategorie").click(() => {
-		$("#fDodajKategorie").toggle();
-		return false;
-	});
-	$(".aUsunKategorie").click(usunRekord);
 	
 	// użytkownicy
 	$("#fDodajUzytkownika").hide();
@@ -83,9 +74,7 @@ function usunRekord()
 	
 	return false;
 }
-
-
-/**});
+});
 
 $(function() {
 	$(".aUsunZKoszyka").click(function() {
@@ -103,7 +92,7 @@ $(function() {
 		
 		return false;
 	});
-});  */
+}); 
 
 
 

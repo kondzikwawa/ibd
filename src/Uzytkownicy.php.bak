@@ -37,11 +37,6 @@ class Uzytkownicy
         $this->db = new Db();
     }
 
-    public function setDane($dane)
-    {
-        $this->dane = $dane;
-    }
-    
     /**
      * Waliduje dane użytkownika; zwraca tablicę z błędami (kluczami są nazwy pól)
      * wartości błędów:
