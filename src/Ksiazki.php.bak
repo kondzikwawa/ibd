@@ -73,7 +73,7 @@ class Ksiazki
 
 
 
-	
+	/**
 	 * Pobiera dane książki o podanym id.
 	 * 
 	 * @param int $id
@@ -82,7 +82,6 @@ class Ksiazki
 	public function pobierz($id)
 	{
 		return $this->db->pobierz('ksiazki', $id);
-	}
 
 	/**
 	 * Zwraca wpisaną wartość dla określonego pola (lub wszystkie)
@@ -90,7 +89,6 @@ class Ksiazki
 	 * @param string $pole
 	 * @return string
 	 */
-
 	public function dane($pole = null)
 	{
 		if (is_null($pole)) {
@@ -104,7 +102,7 @@ class Ksiazki
 			return '';
 		}
 	}
-	
+	}
 	public function waliduj($dane)
     {
         // usuwanie spacji z początku i końca
@@ -135,7 +133,7 @@ class Ksiazki
         return array_sum($this->bledy) > 0;
     }
 
-	
+	/**
 
 
 	public function pobierzSzczegoly($id)
@@ -143,12 +141,14 @@ class Ksiazki
 		return $this->db->pobierzSzczeg($id);
 	}
 
-	/*
+
+
+	/**
 	 * Pobiera wszystkie książki.
 	 *
 	 * @return array
 	 */
-	/*public function pobierzWszystkie()
+	public function pobierzWszystkie()
 	{
 		$sql = "
 			SELECT k.*, CONCAT(a.imie, ' ', a.nazwisko) AS autor, kat.nazwa AS kategoria
@@ -159,19 +159,18 @@ class Ksiazki
 
 		return $this->db->pobierzWszystko($sql);
 	}
-	*/
 
 	/**
 
 
 
-	
+	/**
 	 * Pobiera najlepiej sprzedające się książki.
 	 * 
 	 */
 	public function pobierzBestsellery()
 	{
-		$sql = "SELECT zdjecie, tytul, opis, k.id, concat(imie, ' ', nazwisko) as author, c.nazwa, k.cena, sum(zs.liczba_sztuk) from ksiazki k join autorzy a on k.id_autora=a.id join kategorie c ON k.id_kategorii=c.id join zamowienia_szczegoly zs on k.id=zs.id_ksiazki GROUP by k.id order by sum(zs.liczba_sztuk) DESC LIMIT 5";
+		$sql = "SELECT zdjecie, tytul, opis, k.id, concat(imie, ' ', nazwisko) as author, c.nazwa, k.cena from ksiazki k join autorzy a on k.id_autora=a.id join kategorie c ON k.id_kategorii=c.id ORDER BY RAND() LIMIT 5";
 
 		return $this->db->pobierzWszystko($sql);
 	}
@@ -233,23 +232,21 @@ class Ksiazki
 	 * @param int $id
 	 * @return array
 	 */
-	/*public function pobierz($id)
+	public function pobierz($id)
 	{
 		return $this->db->pobierz('ksiazki', $id);
 	}
-	*/
 
 	/**
 	 * Pobiera najlepiej sprzedające się książki.
 	 * 
 	 */
-	/*public function pobierzBestsellery()
+	public function pobierzBestsellery()
 	{
 		$sql = "SELECT * FROM ksiazki ORDER BY RAND() LIMIT 5";
 
 		// uzupełnić funkcję
 	}
-*/
 
 	/**
 	 * Dodaje książkę do bazy.
